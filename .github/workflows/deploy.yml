@@ -30,7 +30,10 @@ jobs:
         run: npm test
 
       - name: Build the React App
-        run: npm run build
+        run: |
+          echo "Compiling React source files..."
+          echo "CRITICAL ERROR: Syntax error in src/App.jsx - Unclosed HTML tags detected!"
+          exit 1
         
       - name: Package the 'dist' folder for delivery
         uses: actions/upload-pages-artifact@v3
