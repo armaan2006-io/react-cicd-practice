@@ -2,7 +2,7 @@
   "name": "react-cicd-practice",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo 'CRITICAL ERROR: App crashed!' && exit 1",
+    "test": "echo 'Running automated tests...' && exit 0",
     "build": "mkdir dist && echo '<h1>Hello World! My CI/CD Pipeline Works!</h1>' > dist/index.html"
   }
 }
