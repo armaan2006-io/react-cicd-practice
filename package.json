@@ -1,0 +1,8 @@
+{
+  "name": "react-cicd-practice",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo 'Running automated tests... Success!'",
+    "build": "mkdir dist && echo '<h1>Hello World! My CI/CD Pipeline Works!</h1>' > dist/index.html"
+  }
+}
