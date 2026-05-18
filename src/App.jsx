@@ -6,8 +6,3 @@ function App() {
   return (
     <div>
       <h1>Testing the Code Police!</h1>
-    </div>
-  );
-}
-
-export default App;
