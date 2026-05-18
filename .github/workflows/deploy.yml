@@ -1,0 +1,52 @@
+name: Deploy React Practice
+
+# 1. THE TRIGGER: Run this whenever code is pushed to 'main'
+on:
+  push:
+    branches: ["main"]
+
+# 2. PERMISSIONS: Allow the pipeline to upload files to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # ---------------------------------------------------
+  # JOB 1: THE BUILD & TEST (The Safety Inspector)
+  # ---------------------------------------------------
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Grab the code from GitHub
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js server
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run automated tests
+        run: npm test
+
+      - name: Build the React App
+        run: npm run build
+        
+      - name: Package the 'dist' folder for delivery
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  # ---------------------------------------------------
+  # JOB 2: THE DEPLOYMENT (The Delivery)
+  # ---------------------------------------------------
+  deploy:
+    needs: build-and-test # This forces it to WAIT for the tests to pass!
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Push the website live to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
